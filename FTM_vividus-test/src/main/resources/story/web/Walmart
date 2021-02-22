@@ -1,0 +1,34 @@
+Scenario: Create account
+Given I am on a page with the URL 'https://www.walmart.com'
+When I click on element located `By.xpath(//span[text()='Account'])`
+When I click on element located `By.xpath(//div[contains(@class, 'x_a x_i') and normalize-space(.//text())='Sign In'])`
+When I click on a button with the name 'Create account'
+When I enter '2Leo2021test' in a field with the name 'First name'
+When I enter '2LLeo2021test' in a field with the name 'Last name'
+When I enter '2LLeo2021test@leith.com' in a field with the name 'Email address'
+When I enter '12345678' in a field with the name 'Create a password'
+When I click on a button with the name 'Create account'
+Then the text 'Shop by category' exists
+
+Scenario: Perform search for product by search box
+Given I am on a page with the URL 'https://www.walmart.com'
+When I enter `Jackets` in field located `By.xpath(//*[@id="global-search-input"])`
+When I click on an element by the xpath '//*[@id="global-search-submit"]//img'
+Then the text 'Results for' exists
+
+
+Scenario: Open product page for product from previous step
+When I click on element located `By.xpath(//*[@alt="George Men's and Big Men's Denim Jacket, up to Size 5XL"])`
+Then the page with the URL 'https://www.walmart.com/ip/George-Men-s-and-Big-Men-s-Denim-Jacket-up-to-Size-5XL/997719577' is loaded
+
+Scenario: Add product to cart
+Given I am on a page with the URL 'https://www.walmart.com/ip/George-Men-s-and-Big-Men-s-Denim-Jacket-up-to-Size-5XL/997719577'
+When I click on element located `By.xpath((//*[@data-label='Light Wash'])[2])`
+When I click on element located `By.xpath(//*[@data-variant-id='Clothing Size2XL'])`
+When I click on element located `By.xpath(//span[text()='Add to cart'])`
+Then the text 'You just added 1 item' exists
+
+Scenario: Navigate to cart
+Given I am on a page with the URL 'https://www.walmart.com'
+When I click on element located `By.xpath(//*[@id="hf-cart"])`
+Then the text 'Saved for later' exists
